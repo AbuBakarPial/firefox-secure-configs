@@ -1,0 +1,189 @@
+/* ========== Zen-like Vertical Tabs — Compact, Clean, Focused ========== /
+/ Base: compact density, small icons, subtle dividers, pinned tab chips */
+
+:root {
+--vt-width: 260px; /* Sidebar width /
+--vt-row-height: 32px; / Tab row height */
+--vt-padding-x: 8px;
+--vt-font-size: 12.5px;
+--vt-radius: 8px;
+--vt-gap: 4px;
+
+--vt-bg: color-mix(in srgb, -moz-Dialog 94%, transparent);
+--vt-tab: color-mix(in srgb, -moz-Dialog 92%, transparent);
+--vt-hover: color-mix(in srgb, AccentColor 12%, transparent);
+--vt-active: color-mix(in srgb, AccentColor 18%, transparent);
+--vt-border: color-mix(in srgb, currentColor 12%, transparent);
+--vt-badge: color-mix(in srgb, AccentColor 80%, white 20%);
+--vt-audio: color-mix(in srgb, AccentColor 88%, white 12%);
+}
+
+/* Sidebar base */
+#sidebar-box {
+min-width: var(--vt-width) !important;
+max-width: var(--vt-width) !important;
+background: var(--vt-bg) !important;
+border-inline-end: 1px solid var(--vt-border) !important;
+}
+
+/* Hide sidebar header for a cleaner look (toggle if you want it) */
+#sidebar-header {
+display: none !important;
+}
+
+/* Tree style tabs/vertical tabs list adjustments */
+#sidebar {
+font-size: var(--vt-font-size) !important;
+}
+
+/* General row sizing */
+.tabbrowser-tab,
+.sidebar-placesTreechildren::-moz-tree-row,
+#sidebar .tab {
+height: var(--vt-row-height) !important;
+min-height: var(--vt-row-height) !important;
+}
+
+/* If using built-in Firefox vertical tabs UI in Zen: */
+:root[sidebar-visible="true"] #TabsToolbar {
+visibility: collapse !important;
+}
+
+/* ========== Tab appearance ========== */
+#sidebar .tab,
+.tabbrowser-tab {
+border-radius: var(--vt-radius) !important;
+margin: var(--vt-gap) var(--vt-gap) !important;
+padding: 0 var(--vt-padding-x) !important;
+background: transparent !important;
+border: 1px solid transparent !important;
+}
+
+/* Hover and active states */
+#sidebar .tab:hover,
+.tabbrowser-tab:hover {
+background: var(--vt-hover) !important;
+border-color: var(--vt-border) !important;
+}
+
+#sidebar .tab[selected],
+.tabbrowser-tab[selected] {
+background: var(--vt-active) !important;
+border-color: var(--vt-badge) !important;
+}
+
+/* Favicon and title alignment */
+#sidebar .tab .favicon,
+#sidebar .tab .label {
+align-items: center !important;
+}
+
+#sidebar .tab .label {
+margin-inline-start: 8px !important;
+mask-image: none !important;
+}
+
+/* Unread/updated indicator — subtle pill */
+#sidebar .tab.unread .label,
+#sidebar .tab.hasAudio .label {
+font-weight: 600 !important;
+}
+
+/* Pinned tabs as small rounded chips at top /
+#sidebar .tab.pinned {
+height: 28px !important;
+min-height: 28px !important;
+width: calc(var(--vt-width) - 2var(--vt-gap)) !important;
+background: var(--vt-tab) !important;
+border-radius: 999px !important;
+margin: var(--vt-gap) var(--vt-gap) !important;
+}
+
+/* Audio playing/muted indicators — accent pill */
+#sidebar .tab.soundplaying .audio-icon,
+#sidebar .tab.muted .audio-icon {
+background: var(--vt-audio) !important;
+color: white !important;
+border-radius: 999px !important;
+padding: 2px 6px !important;
+}
+
+/* Close buttons: show on hover only, soften icon */
+#sidebar .tab .close-icon {
+visibility: hidden !important;
+opacity: 0 !important;
+transition: opacity .15s ease;
+}
+
+#sidebar .tab:hover .close-icon {
+visibility: visible !important;
+opacity: .9 !important;
+}
+
+/* Slim scrollbars inside sidebar */
+#sidebar scrollbox,
+#sidebar :-moz-any(scrollbar, scrollbarbutton, scrollbarthumb) {
+scrollbar-width: thin !important;
+}
+
+/* Subtle separators between groups (if extension supports groups) */
+#sidebar .tab-group,
+#sidebar .tab.separator {
+margin: 8px var(--vt-gap) 0 !important;
+border-top: 1px solid var(--vt-border) !important;
+padding-top: 6px !important;
+}
+
+/* ========== URL bar and toolbar slimming (optional; complements user.js) ========== /
+/ Compact toolbars */
+:root {
+--toolbarbutton-inner-padding: 6px !important;
+--toolbarbutton-outer-padding: 0px !important;
+}
+
+/* Reduce tab strip height when horizontal tabs are visible (fallback) */
+#TabsToolbar {
+min-height: 30px !important;
+}
+
+/* Hide horizontal tab strip entirely when vertical tabs/Zen sidebar is present */
+:root[sidebar-visible="true"] #TabsToolbar,
+:root[TabsInTitlebar] #TabsToolbar {
+visibility: collapse !important;
+}
+
+/* ========== New tab page minimalist fallback (if enabled) ========== */
+@-moz-document url("about:newtab"), url("about:home") {
+body {
+--newtab-background-color: var(--vt-bg) !important;
+}
+.top-site-outer, .search-inner-wrapper, .ds-highlights {
+filter: saturate(.9) opacity(.95);
+}
+}
+
+/* ========== Optional: compact bookmarks panel ========== */
+#bookmarksPanel,
+#bookmarks-view {
+font-size: 12px !important;
+--arrowpanel-padding: 6px !important;
+}
+
+/* ========== Optional: clearer full URL display (pairs with trimURLs=false) ========== */
+#urlbar[open] .urlbarView-row .urlbarView-url {
+opacity: .95 !important;
+}
+
+/* ========== Optional: nicer hover on toolbar buttons ========== */
+toolbarbutton:not([disabled="true"]):hover {
+background: color-mix(in srgb, AccentColor 14%, transparent) !important;
+border-radius: 8px !important;
+}
+
+/* ========== Optional: fine-tune widths quickly ========== /
+/ Customize these to taste /
+@media (min-resolution: 1dppx) {
+:root { --vt-width: 240px; } / Narrower sidebar /
+}
+/ End userChrome.css */
+
